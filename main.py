@@ -69,6 +69,13 @@ def get_pad(old_size, pad_unit):
     needed = pad_unit - remainder
     pad_before = needed // 2
     pad_after = needed - pad_before
+
+    # 保证pad_before和pad_after都是pad_unit的整数倍
+    sub_pad = pad_before % pad_unit
+    if sub_pad != 0:
+        pad_before += pad_unit - sub_pad
+        pad_after -= pad_unit - sub_pad
+
     return pad_before, pad_after
 
 def process_image(image_path, output_path, pad_unit, pad_mode, scale_factor,
